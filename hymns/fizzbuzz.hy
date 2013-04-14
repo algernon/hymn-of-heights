@@ -3,7 +3,7 @@
 (def targets {3 "fizz" 5 "buzz" 7 "beep"})
 
 (defn match [n factors]
-  (filter (lambda [x] (= 0 (% n x))) factors))
+  (filter (lambda [x] (not (% n x))) factors))
 
 (defn fizzbuzz [n]
   (let [[factors (-> targets .keys sorted)]
