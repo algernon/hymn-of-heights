@@ -4,8 +4,11 @@
 
 (def *factors* {3 "fizz" 5 "buzz" 7 "beep"})
 
+(defn multiple-of? [n x]
+  (not (% n x)))
+
 (defn match [n factors]
-  (filter (lambda [x] (not (% n x))) factors))
+  (filter (partial multiple-of? n) factors))
 
 (defn fizzbuzz [targets n]
   (let [[factors (-> targets .keys sorted)]
