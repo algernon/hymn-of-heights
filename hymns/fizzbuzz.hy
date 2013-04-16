@@ -12,7 +12,7 @@
   (any (map (lambda [f] (f n x)) constraints)))
 
 (defn match [n constraints factors]
-  (filter (partial fizzbuzz-constraints constraints n) factors))
+  (list (filter (partial fizzbuzz-constraints constraints n) factors)))
 
 (defn fizzbuzz [constraints targets n]
   (let [[factors (-> targets .keys sorted)]
