@@ -7,8 +7,15 @@
 (defn multiple-of? [n x]
   (not (% n x)))
 
+(defn contains-number? [x n]
+  (-> (str n) (in (str x))))
+
+(defn contains-or-is-multiple-of? [n x]
+  (or (multiple-of? n x)
+      (contains-number? n x)))
+
 (defn match [n factors]
-  (filter (partial multiple-of? n) factors))
+  (filter (partial contains-or-is-multiple-of? n) factors))
 
 (defn fizzbuzz [targets n]
   (let [[factors (-> targets .keys sorted)]
