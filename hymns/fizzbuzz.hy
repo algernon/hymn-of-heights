@@ -12,14 +12,18 @@
   (any (map (lambda [f] (f n x)) constraints)))
 
 (defn match [n constraints factors]
-  (list (filter (partial fizzbuzz-constraints constraints n) factors)))
+  (->> factors
+       (filter (partial fizzbuzz-constraints constraints n))
+       (list)))
 
 (defn fizzbuzz [constraints targets n]
   (let [[factors (-> targets .keys sorted)]
         [matches (match n constraints factors)]]
     (if (not matches)
       (str n)
-      (.join "" (map (lambda [x] (get targets x)) matches)))))
+      (->> matches
+           (map (lambda [x] (get targets x)))
+           (.join "")))))
 
 (if (= __name__ "__main__")
   (do
