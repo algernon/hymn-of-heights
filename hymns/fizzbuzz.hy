@@ -24,7 +24,9 @@
   (-> (str x) (in (str n))))
 
 (defn fizzbuzz-constraints [constraints n x]
-  (any (map (lambda [f] (f n x)) constraints)))
+  (->> constraints
+      (map (lambda [f] (f n x)))
+      (any)))
 
 (defn match [n constraints factors]
   (->> factors
@@ -45,4 +47,6 @@
     (def *factors* {3 "fizz" 5 "buzz" 7 "beep"})
     (def *constraints* [multiple-of? contains-number?])
 
-    (print (.join ", " (map (partial fizzbuzz *constraints* *factors*) (range 1 106))))))
+    (print (->> (range 1 106)
+                (map (partial fizzbuzz *constraints* *factors*))
+                (.join ", ")))))
